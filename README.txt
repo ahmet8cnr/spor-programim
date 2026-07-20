@@ -1,5 +1,5 @@
-GITHUB PAGES YÜKLEME PAKETİ
-
-Bu klasördeki tüm dosyaları GitHub deposunun ana dizinine yükleyin.
-GitHub Pages kaynağı: main branch / (root).
-Ana dosya index.html olmalıdır.
+V3 güncellemeleri:
+- iPhone'a Ekle butonu kaldırıldı.
+- Üst açıklama alanı kompakt sıradaki antrenman kartına dönüştürüldü.
+- Dört istatistik kutusu tıklanabilir ve detay pencereleri gösterir.
+- Sekmeler ilgili bölümün başına kaydırılır.
