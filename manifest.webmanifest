@@ -1,6 +1,6 @@
 {
   "name": "Ahmet A/B Performance",
-  "short_name": "A/B Spor",
+  "short_name": "A/B Performance",
   "description": "A/B antrenman, set, PR ve ilerleme takip uygulaması",
   "start_url": "./",
   "scope": "./",
