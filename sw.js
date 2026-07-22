@@ -1,4 +1,4 @@
-const CACHE='ab-performance-v8';
+const CACHE='ab-performance-v9';
 const ASSETS=["./", "./index.html", "./manifest.webmanifest", "./css/style.css", "./js/data.js", "./js/storage.js", "./js/workout.js", "./js/statistics.js", "./js/settings.js", "./js/ui.js", "./js/app.js", "./data/defaultProgram.json", "./icons/icon-180.png", "./icons/icon-192.png", "./icons/icon-512.png"];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));

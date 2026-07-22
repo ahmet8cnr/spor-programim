@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <meta content="#07090d" name="theme-color"/>
-<meta content="8" name="app-version"/>
+<meta content="9" name="app-version"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="A/B Performance" name="apple-mobile-web-app-title"/>
@@ -14,7 +14,7 @@
 <link href="icons/icon-192.png" rel="icon"/>
 <title>Ahmet | A/B Antrenman Takip</title>
 
-<link href="css/style.css?v=8" rel="stylesheet"/></head>
+<link href="css/style.css?v=9" rel="stylesheet"/></head>
 <body>
 <div class="app">
 <header class="topbar"><div class="brand"><div class="logo">AÇ</div><div><h1>A/B Performance</h1><p>Güç • Hacim • Süreklilik</p></div></div></header>
@@ -33,7 +33,7 @@
 <div class="panel"><h3>Program düzeni</h3><p class="small">Antrenman tamamlandığında sıradaki program otomatik olarak A ↔ B değişir. Günlerin sabit olması gerekmez.</p><button class="btn" onclick="toggleNextWorkout()">Sıradaki antrenmanı değiştir</button></div>
 <div class="panel"><h3>Veri yönetimi</h3><div class="exercise-actions"><button class="btn" onclick="exportData()">Yedek indir</button><label class="btn">Yedek yükle<input accept="application/json" hidden="" onchange="importData(event)" type="file"/></label><button class="btn danger" onclick="resetData()">Tüm verileri sil</button></div></div>
 <div class="panel"><h3>Veri özeti</h3><p class="small">Bu alan antrenman kayıtlarına göre otomatik güncellenir.</p><div class="insight-grid" id="dataInsights"></div></div>
-<div class="panel"><div class="section-title" style="margin-top:0"><div><h3>Programı düzenle</h3><span>Hareket adı, set, tekrar, dinlenme, RIR, not ve video bağlantısını düzenleyebilir; hareket ekleyip silebilir ve sırasını değiştirebilirsin.</span></div></div><div id="programEditor"></div><div class="exercise-actions"><button class="btn primary" onclick="saveProgramSettings()">Değişiklikleri kaydet</button><button class="btn" onclick="resetProgramSettings()">Varsayılana dön</button></div></div>
+<div class="panel program-editor-panel"><div class="section-title" style="margin-top:0"><div><h3>Programı düzenle</h3><span>Antrenman A ve B arasında üstteki düğmelerle geçiş yap. Değişikliklerin geçiş sırasında korunur.</span></div></div><div id="programEditor"></div><div class="exercise-actions"><button class="btn primary" onclick="saveProgramSettings()">Değişiklikleri kaydet</button><button class="btn" onclick="resetProgramSettings()">Varsayılana dön</button></div></div>
 </section>
 </main>
 </div>
@@ -41,5 +41,5 @@
 <div class="video-modal" id="statModal" onclick="if(event.target===this)closeStatDetails()"><div class="video-box stat-box"><div class="video-top"><b id="statModalTitle">Detaylar</b><button class="icon-btn" onclick="closeStatDetails()">Kapat</button></div><div class="stat-modal-body" id="statModalBody"></div></div></div>
 <div class="toast" id="toast"></div>
 
-<script defer="" src="js/data.js?v=8"></script><script defer="" src="js/storage.js?v=8"></script><script defer="" src="js/workout.js?v=8"></script><script defer="" src="js/statistics.js?v=8"></script><script defer="" src="js/settings.js?v=8"></script><script defer="" src="js/ui.js?v=8"></script><script defer="" src="js/app.js?v=8"></script></body>
+<script defer="" src="js/data.js?v=9"></script><script defer="" src="js/storage.js?v=9"></script><script defer="" src="js/workout.js?v=9"></script><script defer="" src="js/statistics.js?v=9"></script><script defer="" src="js/settings.js?v=9"></script><script defer="" src="js/ui.js?v=9"></script><script defer="" src="js/app.js?v=9"></script></body>
 </html>

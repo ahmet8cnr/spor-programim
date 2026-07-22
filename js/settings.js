@@ -1,24 +1,31 @@
 'use strict';
+let editorActiveWorkout='A';
 function escapeAttr(v){return String(v??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function renderProgramEditor(){
   const root=document.getElementById('programEditor');if(!root)return;
-  root.innerHTML=['A','B'].map(code=>{
-    const p=programs[code];
-    return `<div class="editor-workout">
-      <div class="editor-workout-top"><h4>Antrenman ${code}</h4><button class="btn add-exercise" style="width:auto;margin:0" onclick="addExercise('${code}')">+ Hareket ekle</button></div>
+  const code=editorActiveWorkout;
+  const p=programs[code];
+  root.innerHTML=`
+    <div class="editor-switch" role="tablist" aria-label="Düzenlenecek antrenman">
+      ${['A','B'].map(c=>`<button type="button" role="tab" aria-selected="${c===code}" class="editor-switch-btn ${c===code?'active':''}" onclick="setEditorWorkout('${c}')"><span>Antrenman ${c}</span><small>${programs[c].exercises.length} hareket</small></button>`).join('')}
+    </div>
+    <div class="editor-active-summary"><div><b>${escapeAttr(p.title)}</b><span>${escapeAttr(p.subtitle)}</span></div><strong>${p.exercises.length}</strong></div>
+    <div class="editor-workout" data-editor-code="${code}">
+      <div class="editor-workout-top"><div><h4>Antrenman ${code}</h4><span class="small">Yalnızca seçili program gösteriliyor.</span></div><button class="btn add-exercise" style="width:auto;margin:0" onclick="addExercise('${code}')">+ Hareket ekle</button></div>
       <div class="editor-heading">
         <div><div class="editor-label">Antrenman başlığı</div><input class="field program-title" data-code="${code}" value="${escapeAttr(p.title)}"></div>
         <div><div class="editor-label">Alt açıklama</div><input class="field program-subtitle" data-code="${code}" value="${escapeAttr(p.subtitle)}"></div>
       </div>
       ${p.exercises.map((e,i)=>`<div class="editor-exercise">
+        <div class="editor-exercise-title"><b>${i+1}. ${escapeAttr(e.name)}</b><span>${Number(e.sets)||1} set • ${escapeAttr(e.reps||'')}</span></div>
         <div class="editor-main">
-          <div><div class="editor-label">${i+1}. hareket adı</div><input class="field program-name" data-code="${code}" data-index="${i}" value="${escapeAttr(e.name)}"></div>
-          <div><div class="editor-label">YouTube / video bağlantısı</div><input class="field program-video" data-code="${code}" data-index="${i}" value="${escapeAttr(e.video||'')}"></div>
+          <div><div class="editor-label">Hareket adı</div><input class="field program-name" data-code="${code}" data-index="${i}" value="${escapeAttr(e.name)}"></div>
+          <div><div class="editor-label">YouTube / video bağlantısı</div><input class="field program-video" inputmode="url" data-code="${code}" data-index="${i}" value="${escapeAttr(e.video||'')}"></div>
         </div>
         <div class="editor-numbers">
-          <div><div class="editor-label">Set sayısı</div><input class="field program-sets" type="number" min="1" max="20" data-code="${code}" data-index="${i}" value="${Number(e.sets)||1}"></div>
+          <div><div class="editor-label">Set sayısı</div><input class="field program-sets" type="number" inputmode="numeric" min="1" max="20" data-code="${code}" data-index="${i}" value="${Number(e.sets)||1}"></div>
           <div><div class="editor-label">Tekrar / süre</div><input class="field program-reps" data-code="${code}" data-index="${i}" value="${escapeAttr(e.reps||'')}"></div>
-          <div><div class="editor-label">Dinlenme (sn)</div><input class="field program-rest" type="number" min="0" step="5" data-code="${code}" data-index="${i}" value="${Number(e.rest)||0}"></div>
+          <div><div class="editor-label">Dinlenme (sn)</div><input class="field program-rest" type="number" inputmode="numeric" min="0" step="5" data-code="${code}" data-index="${i}" value="${Number(e.rest)||0}"></div>
           <div><div class="editor-label">RIR / yoğunluk</div><input class="field program-rir" data-code="${code}" data-index="${i}" value="${escapeAttr(e.rir||'')}"></div>
         </div>
         <div class="editor-note"><div><div class="editor-label">Hareket notu</div><input class="field program-note" data-code="${code}" data-index="${i}" value="${escapeAttr(e.note||'')}"></div></div>
@@ -30,7 +37,14 @@ function renderProgramEditor(){
       </div>`).join('')}
       <button class="btn add-exercise" onclick="addExercise('${code}')">+ Yeni hareket ekle</button>
     </div>`;
-  }).join('');
+}
+function setEditorWorkout(code){
+  if(code===editorActiveWorkout)return;
+  syncProgramEditor();
+  state.programs=programs;save();
+  editorActiveWorkout=code;
+  renderProgramEditor();
+  document.querySelector('.program-editor-panel')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function syncProgramEditor(){
   document.querySelectorAll('.program-title').forEach(x=>programs[x.dataset.code].title=x.value.trim()||programs[x.dataset.code].title);
@@ -57,7 +71,7 @@ function addExercise(code){
   syncProgramEditor();
   const id=`custom-${Date.now()}-${Math.random().toString(36).slice(2,7)}`;
   programs[code].exercises.push({id,name:'Yeni Hareket',sets:3,reps:'8-12',rest:90,rir:'1-2 RIR',video:'',note:''});
-  state.programs=programs;save();renderProgramEditor();
+  state.programs=programs;save();editorActiveWorkout=code;renderProgramEditor();
   setTimeout(()=>document.querySelectorAll(`.program-name[data-code="${code}"]`)[programs[code].exercises.length-1]?.focus(),0);
 }
 function deleteExercise(code,index){
@@ -74,5 +88,5 @@ function moveExercise(code,index,direction){
 }
 function resetProgramSettings(){
   if(!confirm('Program başlıkları, hareketler, setler, tekrarlar ve video bağlantıları varsayılana dönsün mü? Geçmiş kayıtların korunur.'))return;
-  programs=ensureProgramShape(clone(defaultPrograms));state.programs=programs;save();renderWorkout('A');renderWorkout('B');updateProgress();renderProgramEditor();toast('Program varsayılana döndürüldü.');
+  programs=ensureProgramShape(clone(defaultPrograms));state.programs=programs;save();editorActiveWorkout='A';renderWorkout('A');renderWorkout('B');updateProgress();renderProgramEditor();toast('Program varsayılana döndürüldü.');
 }

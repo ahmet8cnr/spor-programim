@@ -10,5 +10,5 @@ function initApp(){
 
 document.addEventListener('DOMContentLoaded',initApp);
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=8').catch(()=>{}));
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=9').catch(()=>{}));
 }
