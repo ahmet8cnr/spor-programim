@@ -1,11 +1,20 @@
-A/B Performance V7
+AHMET A/B PERFORMANCE — V8
 
-Düzeltmeler:
-- Son antrenman ve tamamlanan hareketlerde artık en yüksek kullanılan ağırlık görünür.
-- Tekrar girilmemiş olsa bile kayıtlı kg değeri 0 kg olarak gösterilmez.
-- Tamamlanan set ayrıntılarında hareket bazında kg ve tekrar bilgisi görünür.
-- Ayarlar > Programı düzenle bölümünde her hareket için set sayısı, tekrar/süre, dinlenme, RIR, not ve video bağlantısı düzenlenebilir.
-- Set sayısı kaydedildiğinde antrenman ekranındaki set satırları otomatik oluşur.
-- Önbellek sürümü V7 olarak yenilendi.
+Bu sürümde uygulama modüler dosya yapısına taşındı:
+- index.html: sayfa iskeleti
+- css/style.css: görünüm
+- js/data.js: varsayılan program
+- js/storage.js: cihazdaki veri ve program ayarları
+- js/workout.js: antrenman ve set işlemleri
+- js/statistics.js: ilerleme ve ayrıntı kutuları
+- js/settings.js: program düzenleme
+- js/ui.js: sayfa geçişleri, yedekleme ve bildirimler
+- js/app.js: uygulama başlangıcı
+- data/defaultProgram.json: okunabilir varsayılan program verisi
+- icons/: uygulama simgeleri
 
-GitHub deposundaki mevcut dosyaların üzerine yükleyip Commit changes yapın.
+GitHub Pages kurulumu:
+Bu klasörün İÇİNDEKİ index.html, css, js, data, icons, manifest.webmanifest ve sw.js öğelerini deponun ana dizinine yükleyin.
+ZIP dosyasının kendisini veya ahmet-spor-site-v8 klasörünü tek parça olarak yüklemeyin.
+
+Not: Önceki antrenman kayıtları tarayıcının localStorage alanında tutulur. Aynı site adresini kullanırsanız korunur.
